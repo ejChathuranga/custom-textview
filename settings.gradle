@@ -1,2 +1,3 @@
+include ':customTextView'
 include ':app'
 rootProject.name = "CustomTextView"

@@ -6,4 +6,10 @@
         <attr name="color" format="color"/>
         <attr name="dash" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="underlineWidth" format="dimension" />
+        <attr name="underlineColor" format="color" />
+        <attr name="underlinePadding" format="integer"/>
+    </declare-styleable>
 </resources>
