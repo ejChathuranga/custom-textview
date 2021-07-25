@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         String aa = "a";
 
-        for (int i=0; i <1000; i++){
+        for (int i=0; i <2000; i++){
             aa = aa + "a";
             textView.setText(aa);
         }
