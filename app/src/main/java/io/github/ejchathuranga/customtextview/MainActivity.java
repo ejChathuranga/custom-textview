@@ -1,12 +1,12 @@
-package com.ej.customtextview;
-
-import androidx.appcompat.app.AppCompatActivity;
+package io.github.ejchathuranga.customtextview;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.ej.customtv.CustomTextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import io.github.ejchathuranga.ctv.CustomTextView;
 
 public class MainActivity extends AppCompatActivity {
 

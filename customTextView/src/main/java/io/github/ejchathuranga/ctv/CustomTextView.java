@@ -1,4 +1,4 @@
-package com.ej.customtv;
+package io.github.ejchathuranga.ctv;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,6 +12,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+
 
 public class CustomTextView extends AppCompatTextView {
 
@@ -41,9 +42,9 @@ public class CustomTextView extends AppCompatTextView {
 
         float density = context.getResources().getDisplayMetrics().density;
 
-        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, com.ej.customtv.R.styleable.CustomTextView, defStyle, 0);
-        int underlineColor = typedArray.getColor(com.ej.customtv.R.styleable.CustomTextView_underlineColor, ContextCompat.getColor(context, com.ej.customtv.R.color.transparent));
-        mStrokeWidth = typedArray.getDimension(com.ej.customtv.R.styleable.CustomTextView_underlineWidth, density * 2);
+        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, io.github.ejchathuranga.ctv.R.styleable.CustomTextView, defStyle, 0);
+        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineColor, ContextCompat.getColor(context, io.github.ejchathuranga.ctv.R.color.transparent));
+        mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * 2);
         mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_underlinePadding, 2);
 
         typedArray.recycle();

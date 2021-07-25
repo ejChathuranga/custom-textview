@@ -1,4 +1,4 @@
-package com.ej.customtv;
+package io.github.ejchathuranga;
 
 import android.content.Context;
 

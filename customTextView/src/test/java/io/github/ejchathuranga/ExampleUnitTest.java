@@ -1,4 +1,4 @@
-package com.ej.customtextview;
+package io.github.ejchathuranga;
 
 import org.junit.Test;
 
