@@ -1,3 +1,5 @@
+# Custom TextView
+
 ## Welcome to Customizable TextView Component on Android
 
 CustomTextView is a Customizable text view component that can use on Android. This component is a child of `AppCompatTextView` and almost all functionalities are inherited from `TextView`. 
