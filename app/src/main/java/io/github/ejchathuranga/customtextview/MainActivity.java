@@ -18,12 +18,14 @@ public class MainActivity extends AppCompatActivity {
 
         final CustomTextView textView = findViewById(R.id.tv);
 
-        String aa = "a";
+//        String aa = "a";
+//
+//        for (int i=0; i <2000; i++){
+//            aa = aa + "a";
+//            textView.setText(aa);
+//        }
 
-        for (int i=0; i <2000; i++){
-            aa = aa + "a";
-            textView.setText(aa);
-        }
+        textView.setText("CustomTextView is a Customizable text view component that can use on Android");
 
         Button button = findViewById(R.id.button);
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 textView.setUnderLineColor(R.color.colorAccent);
+                textView.setUnderlineWidth(5f);
             }
         });
     }
