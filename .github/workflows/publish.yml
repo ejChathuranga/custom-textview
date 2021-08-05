@@ -17,6 +17,10 @@ jobs:
         with:
           distribution: adopt
           java-version: 11
+      
+        # CHANGE GRADLE WRAPPER PERMISSION ON GITHUB
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
 
         # Builds the release artifacts of the library
       - name: Release build
