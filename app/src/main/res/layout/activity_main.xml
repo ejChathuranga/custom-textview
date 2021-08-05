@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:lineSpacingExtra="10dp"
         android:textSize="20sp"
+        app:ctvUnderlineColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

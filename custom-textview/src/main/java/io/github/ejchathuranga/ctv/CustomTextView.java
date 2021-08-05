@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 
 
 public class CustomTextView extends AppCompatTextView {
+    private static final String TAG = "CustomTextView";
 
     private Rect mRect;
     private Paint mPaint;
@@ -43,49 +44,49 @@ public class CustomTextView extends AppCompatTextView {
         float density = context.getResources().getDisplayMetrics().density;
 
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, io.github.ejchathuranga.ctv.R.styleable.CustomTextView, defStyle, 0);
-        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineColor, ContextCompat.getColor(context, io.github.ejchathuranga.ctv.R.color.transparent));
+        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, ContextCompat.getColor(context, R.color.transparent));
         mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * 2);
         mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_underlinePadding, 2);
-
+        int dotWidth = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotWidth, 10);
+        int dotSpace = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotSpace, 5);
         typedArray.recycle();
 
         mRect = new Rect();
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(underlineColor);
         mPaint.setStrokeWidth(mStrokeWidth);
 
         // Comment below line if no dashed underline needed.
-        mPaint.setPathEffect(new DashPathEffect(new float[]{5,5},0));
+        mPaint.setPathEffect(new DashPathEffect(new float[]{dotWidth, dotSpace}, 0));
     }
 
-    @SuppressWarnings("unused")
+//    private void setTransparentUnderline
+
     public int getUnderLineColor() {
         return mPaint.getColor();
     }
 
-    @SuppressWarnings("unused")
     public void setUnderLineColor(int mColor) {
         mPaint.setColor(mColor);
         invalidate();
     }
 
-    @SuppressWarnings("unused")
-    public float getUnderlineWidth() {
-        return mStrokeWidth;
-    }
-
-    @SuppressWarnings("unused")
     public void setUnderlineWidth(float mStrokeWidth) {
         this.mStrokeWidth = mStrokeWidth;
         invalidate();
     }
 
+    public void setUnderlineDotWidthAndSpace(float width, float space) {
+        mPaint.setPathEffect(new DashPathEffect(new float[]{width, space}, 0));
+        invalidate();
+    }
+
+
     @Override
     protected void onDraw(Canvas canvas) {
 
         int count = getLineCount();
-
         final Layout layout = getLayout();
         float x_start, x_stop, x_diff;
         int firstCharInLine, lastCharInLine;
