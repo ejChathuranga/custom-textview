@@ -29,4 +29,4 @@ task clean(type: Delete) {
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
-apply from: "${rootDir}/scripts/publish-root.gradle"
+//apply from: "${rootDir}/scripts/publish-root.gradle"
