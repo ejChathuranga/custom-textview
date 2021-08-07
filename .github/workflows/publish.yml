@@ -29,12 +29,12 @@ jobs:
         run: ./gradlew :custom-textview:assembleRelease
 
         # Generates other artifacts (javadocJar is optional)
-      - name: Source jar #and dokka
-        run: ./gradlew androidSourcesJar #javadocJar
+      #- name: Source jar #and dokka
+        #run: ./gradlew androidSourcesJar #javadocJar
 
         # Runs upload, and then closes & releases the repository
       - name: Publish to MavenCentral
-        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew :custom-textview:publishReleasePublicationToSonatypeRepository --max-workers 1 :custom-textview:closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
