@@ -23,29 +23,16 @@ if (secretPropsFile.exists()) {
     ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
 }
 
-//def pgpKeyContent = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
-//if (pgpKeyContent != null) {
-//    def tmpDir = new File("$rootProject.projectDir/scripts")
-//    mkdir tmpDir
-//    def keyFile = new File("$tmpDir/ctvprivate.pgp")
-//    keyFile.createNewFile()
-//    def os = keyFile.newDataOutputStream()
-//    os.write(pgpKeyContent.decodeBase64())
-//    os.close()
-//
-//    ext['signing.secretKeyRingFile'] = keyFile.absolutePath
-//}
-
 // Set up Sonatype repository
-Properties properties= new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 nexusPublishing {
     repositories {
         sonatype {
-            stagingProfileId = properties.getProperty('sonatypeStagingProfileId')
-            username =  properties.getProperty('ossrhUsername')
-            password =  properties.getProperty('ossrhPassword')
+//            stagingProfileId = properties.getProperty('sonatypeStagingProfileId')
+//            username =  properties.getProperty('ossrhUsername')
+//            password =  properties.getProperty('ossrhPassword')
+            stagingProfileId = sonatypeStagingProfileId
+            username = ossrhUsername
+            password = ossrhPassword
 
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))

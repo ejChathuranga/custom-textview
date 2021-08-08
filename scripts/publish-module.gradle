@@ -1,10 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-
-Properties properties= new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     if (project.plugins.findPlugin("com.android.library")) {
@@ -80,11 +76,6 @@ afterEvaluate {
 }
 
 signing {
-//    useInMemoryPgpKeys(
-//            properties.getProperty("signing.keyId"),
-//            properties.getProperty("signing.secretKeyRingFile"),
-//            properties.getProperty("signing.password"),
-//    )
     sign publishing.publications
     sign configurations.archives
 }
