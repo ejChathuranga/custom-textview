@@ -1,11 +1,11 @@
 name: Publish
 
 on:
-  push:
-    branches: [master]
-  #release:
+  #push:
+   # branches: [master]
+  release:
     # We'll run this workflow when a new GitHub release is created
-   # types: [released]
+    types: [released]
 
 jobs:
   publish:
@@ -25,8 +25,8 @@ jobs:
         run: chmod +x ./gradlew
 
         # Builds the release artifacts of the library
-      #- name: Release build
-        #run: ./gradlew :custom-textview:assembleRelease
+      - name: Release build
+        run: ./gradlew :custom-textview:assembleRelease
 
         # Generates other artifacts (javadocJar is optional)
       #- name: Source jar #and dokka
