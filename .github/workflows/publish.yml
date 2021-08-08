@@ -33,7 +33,7 @@ jobs:
         #run: ./gradlew androidSourcesJar #javadocJar
         
       - name: Gradle Tasks
-        run: ./gradlew custom-textview:tasks
+        run: ./gradlew tasks
 
         # Runs upload, and then closes & releases the repository
       - name: Publish to MavenCentral
