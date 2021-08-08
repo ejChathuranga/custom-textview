@@ -1,11 +1,11 @@
 name: Publish
 
 on:
-  #push:
-   # branches: [master]
-  release:
+  push:
+    branches: [master]
+  #release:
     # We'll run this workflow when a new GitHub release is created
-    types: [released]
+   # types: [released]
 
 jobs:
   publish:
