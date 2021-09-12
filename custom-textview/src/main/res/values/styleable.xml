@@ -10,7 +10,7 @@
     <declare-styleable name="CustomTextView">
         <attr name="underlineWidth" format="float" />
         <attr name="ctvUnderlineColor" format="color" />
-        <attr name="underlinePadding" format="integer"/>
+        <attr name="ctvUnderlinePadding" format="integer"/>
         <attr name="ctvUnderLineDotWidth" format="integer"/>
         <attr name="ctvUnderLineDotSpace" format="integer"/>
     </declare-styleable>
