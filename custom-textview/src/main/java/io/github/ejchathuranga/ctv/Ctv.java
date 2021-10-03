@@ -22,6 +22,7 @@ public class Ctv extends AppCompatTextView {
     Paint mPaint;
     float mStrokeWidth;
     int mUnderlinePadding;
+    int colorTransparent;
 
     public Ctv(Context context) {
         this(context, null, 0);
@@ -44,9 +45,10 @@ public class Ctv extends AppCompatTextView {
 
         float density = context.getResources().getDisplayMetrics().density;
         Log.d(TAG, "init: density " + density);
+        colorTransparent = ContextCompat.getColor(context, R.color.transparent);
 
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, io.github.ejchathuranga.ctv.R.styleable.CustomTextView, defStyle, 0);
-        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, ContextCompat.getColor(context, R.color.transparent));
+        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, colorTransparent);
         mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * 2);
         mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderlinePadding, 20);
         int dotWidth = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotWidth, 10);
@@ -67,24 +69,26 @@ public class Ctv extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw: mUnderlinePadding " + mUnderlinePadding);
-        int count = getLineCount();
-        final Layout layout = getLayout();
-        float x_start, x_stop, x_diff;
-        int firstCharInLine, lastCharInLine;
+        if (mPaint.getColor() != colorTransparent){
+            int count = getLineCount();
+            final Layout layout = getLayout();
+            float x_start, x_stop, x_diff;
+            int firstCharInLine, lastCharInLine;
 
-        for (int i = 0; i < count; i++) {
-            int baseline = getLineBounds(i, mRect) + mUnderlinePadding;
-            firstCharInLine = layout.getLineStart(i);
-            lastCharInLine = layout.getLineEnd(i);
+            for (int i = 0; i < count; i++) {
+                int baseline = getLineBounds(i, mRect) + mUnderlinePadding;
+                firstCharInLine = layout.getLineStart(i);
+                lastCharInLine = layout.getLineEnd(i);
 
-            x_start = layout.getPrimaryHorizontal(firstCharInLine);
-            x_diff = layout.getPrimaryHorizontal(firstCharInLine + 1) - x_start;
-            x_stop = layout.getPrimaryHorizontal(lastCharInLine - 1) + x_diff;
+                x_start = layout.getPrimaryHorizontal(firstCharInLine);
+                x_diff = layout.getPrimaryHorizontal(firstCharInLine + 1) - x_start;
+                x_stop = layout.getPrimaryHorizontal(lastCharInLine - 1) + x_diff;
 
-            canvas.drawLine(x_start, baseline + mStrokeWidth, x_stop, baseline + mStrokeWidth, mPaint);
+                canvas.drawLine(x_start, baseline + mStrokeWidth, x_stop, baseline + mStrokeWidth, mPaint);
+            }
+
+            super.onDraw(canvas);
         }
 
-        super.onDraw(canvas);
     }
 }
