@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class CustomTextView extends Ctv {
-
+    private static final String TAG = "CustomTextView";
 
     public CustomTextView(Context context) {
         super(context);
@@ -26,7 +27,6 @@ public class CustomTextView extends Ctv {
      *
      * @param color The new color (including alpha) to set in the paint. See the {@link Color} class
      *              for more details.
-     *
      * @attr ref io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor
      */
     public void setUnderLineColor(int color) {
@@ -39,15 +39,35 @@ public class CustomTextView extends Ctv {
         invalidate();
     }
 
-    public void setUnderlineThickness(int height){
-        mStrokeWidth = mStrokeWidth + height;
+    public void setUnderlineThickness(int height) {
+        float density = getContext().getResources().getDisplayMetrics().density;
+        mStrokeWidth =  density * Const.UNDERLINE_THICKNESS + height;
         mPaint.setStrokeWidth(mStrokeWidth);
+        this.setLineSpacing((mStrokeWidth + mUnderlinePadding), 1);
         invalidate();
     }
 
-    public void setUnderlinePadding(int height){
-        mUnderlinePadding = mUnderlinePadding + height;
+    public void setUnderlinePadding(int height) {
+        mUnderlinePadding = Const.UNDERLINE_PADDING + height;
+        this.setLineSpacing((mStrokeWidth + mUnderlinePadding), 1);
         invalidate();
     }
+
+    public void reset() {
+        mPaint.setColor(Const.COLOR_TRANS);
+
+        mPaint.setPathEffect(new DashPathEffect(new float[]{Const.UNDERLINE_DOT_WIDTH, Const.UNDERLINE_DOT_SPACE}, 0));
+
+        mStrokeWidth = Const.UNDERLINE_THICKNESS;
+        float density = getContext().getResources().getDisplayMetrics().density;
+        mStrokeWidth =  density * mStrokeWidth ;
+        mPaint.setStrokeWidth(mStrokeWidth);
+        this.setLineSpacing(mStrokeWidth, 1);
+
+        mUnderlinePadding = Const.UNDERLINE_PADDING;
+
+        invalidate();
+    }
+
 
 }

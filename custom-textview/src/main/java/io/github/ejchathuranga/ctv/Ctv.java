@@ -22,7 +22,7 @@ public class Ctv extends AppCompatTextView {
     Paint mPaint;
     float mStrokeWidth;
     int mUnderlinePadding;
-    int colorTransparent;
+    float density;
 
     public Ctv(Context context) {
         this(context, null, 0);
@@ -43,18 +43,14 @@ public class Ctv extends AppCompatTextView {
 
     private void init(Context context, AttributeSet attributeSet, int defStyle) {
 
-        float density = context.getResources().getDisplayMetrics().density;
-        Log.d(TAG, "init: density " + density);
-        colorTransparent = ContextCompat.getColor(context, R.color.transparent);
-
+        density = context.getResources().getDisplayMetrics().density;
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, io.github.ejchathuranga.ctv.R.styleable.CustomTextView, defStyle, 0);
-        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, colorTransparent);
-        mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * 2);
-        mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderlinePadding, 20);
-        int dotWidth = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotWidth, 10);
-        int dotSpace = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotSpace, 5);
+        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, Const.COLOR_TRANS);
+        mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * Const.UNDERLINE_THICKNESS);
+        mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderlinePadding, Const.UNDERLINE_PADDING);
+        int dotWidth = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotWidth, Const.UNDERLINE_DOT_WIDTH);
+        int dotSpace = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotSpace, Const.UNDERLINE_DOT_SPACE);
         typedArray.recycle();
-        Log.d(TAG, "init: mStrokeWidth " + mStrokeWidth);
 
 
         mRect = new Rect();
@@ -69,7 +65,8 @@ public class Ctv extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mPaint.getColor() != colorTransparent){
+        if (mPaint.getColor() != Const.COLOR_TRANS) {
+
             int count = getLineCount();
             final Layout layout = getLayout();
             float x_start, x_stop, x_diff;
@@ -84,11 +81,13 @@ public class Ctv extends AppCompatTextView {
                 x_diff = layout.getPrimaryHorizontal(firstCharInLine + 1) - x_start;
                 x_stop = layout.getPrimaryHorizontal(lastCharInLine - 1) + x_diff;
 
-                canvas.drawLine(x_start, baseline + mStrokeWidth, x_stop, baseline + mStrokeWidth, mPaint);
+                float newStroke = mStrokeWidth - (mStrokeWidth/2);
+//                Log.d(TAG, "onDraw: baseline: " + baseline +  "  mStrokeWidth: " + mStrokeWidth + "    sum: "+  (baseline + mStrokeWidth)+  "  newStrock: " + newStrock);
+                canvas.drawLine(x_start, (baseline + newStroke), x_stop, (baseline + newStroke) , mPaint);
             }
 
-            super.onDraw(canvas);
         }
+        super.onDraw(canvas);
 
     }
 }
