@@ -1,79 +1,36 @@
 package io.github.ejchathuranga.ctv;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.text.Layout;
 import android.util.AttributeSet;
-import android.view.View;
+import android.util.Log;
 
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-
-
-public class CustomTextView extends AppCompatTextView {
+public class CustomTextView extends Ctv {
     private static final String TAG = "CustomTextView";
 
-    private Rect mRect;
-    private Paint mPaint;
-    private float mStrokeWidth;
-    private int mUnderlinePadding;
-
     public CustomTextView(Context context) {
-        this(context, null, 0);
+        super(context);
     }
 
     public CustomTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
     }
 
     public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr);
-
-        /// turning off hardware acceleration
-        // can be removed/commented out if no dashed underline needed.
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
-    private void init(Context context, AttributeSet attributeSet, int defStyle) {
-
-        float density = context.getResources().getDisplayMetrics().density;
-
-        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, io.github.ejchathuranga.ctv.R.styleable.CustomTextView, defStyle, 0);
-        int underlineColor = typedArray.getColor(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor, ContextCompat.getColor(context, R.color.transparent));
-        mStrokeWidth = typedArray.getDimension(io.github.ejchathuranga.ctv.R.styleable.CustomTextView_underlineWidth, density * 2);
-        mUnderlinePadding = typedArray.getInteger(R.styleable.CustomTextView_underlinePadding, 2);
-        int dotWidth = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotWidth, 10);
-        int dotSpace = typedArray.getInteger(R.styleable.CustomTextView_ctvUnderLineDotSpace, 5);
-        typedArray.recycle();
-
-        mRect = new Rect();
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(underlineColor);
-        mPaint.setStrokeWidth(mStrokeWidth);
-
-        // Comment below line if no dashed underline needed.
-        mPaint.setPathEffect(new DashPathEffect(new float[]{dotWidth, dotSpace}, 0));
-    }
-
-//    private void setTransparentUnderline
-
-    public int getUnderLineColor() {
-        return mPaint.getColor();
-    }
-
-    public void setUnderLineColor(int mColor) {
-        mPaint.setColor(mColor);
-        invalidate();
-    }
-
-    public void setUnderlineWidth(float mStrokeWidth) {
-        this.mStrokeWidth = mStrokeWidth;
+    /**
+     * Set underline color for this CustomTextView.  Each each underline will apply a single color
+     * that parse over {@code color} param.
+     *
+     * @param color The new color (including alpha) to set in the paint. See the {@link Color} class
+     *              for more details.
+     * @attr ref io.github.ejchathuranga.ctv.R.styleable.CustomTextView_ctvUnderlineColor
+     */
+    public void setUnderLineColor(int color) {
+        mPaint.setColor(color);
         invalidate();
     }
 
@@ -82,27 +39,35 @@ public class CustomTextView extends AppCompatTextView {
         invalidate();
     }
 
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-
-        int count = getLineCount();
-        final Layout layout = getLayout();
-        float x_start, x_stop, x_diff;
-        int firstCharInLine, lastCharInLine;
-
-        for (int i = 0; i < count; i++) {
-            int baseline = getLineBounds(i, mRect) + mUnderlinePadding;
-            firstCharInLine = layout.getLineStart(i);
-            lastCharInLine = layout.getLineEnd(i);
-
-            x_start = layout.getPrimaryHorizontal(firstCharInLine);
-            x_diff = layout.getPrimaryHorizontal(firstCharInLine + 1) - x_start;
-            x_stop = layout.getPrimaryHorizontal(lastCharInLine - 1) + x_diff;
-
-            canvas.drawLine(x_start, baseline + mStrokeWidth, x_stop, baseline + mStrokeWidth, mPaint);
-        }
-
-        super.onDraw(canvas);
+    public void setUnderlineThickness(int height) {
+        float density = getContext().getResources().getDisplayMetrics().density;
+        mStrokeWidth =  density * Const.UNDERLINE_THICKNESS + height;
+        mPaint.setStrokeWidth(mStrokeWidth);
+        this.setLineSpacing((mStrokeWidth + mUnderlinePadding), 1);
+        invalidate();
     }
+
+    public void setUnderlinePadding(int height) {
+        mUnderlinePadding = Const.UNDERLINE_PADDING + height;
+        this.setLineSpacing((mStrokeWidth + mUnderlinePadding), 1);
+        invalidate();
+    }
+
+    public void reset() {
+        mPaint.setColor(Const.COLOR_TRANS);
+
+        mPaint.setPathEffect(new DashPathEffect(new float[]{Const.UNDERLINE_DOT_WIDTH, Const.UNDERLINE_DOT_SPACE}, 0));
+
+        mStrokeWidth = Const.UNDERLINE_THICKNESS;
+        float density = getContext().getResources().getDisplayMetrics().density;
+        mStrokeWidth =  density * mStrokeWidth ;
+        mPaint.setStrokeWidth(mStrokeWidth);
+        this.setLineSpacing(mStrokeWidth, 1);
+
+        mUnderlinePadding = Const.UNDERLINE_PADDING;
+
+        invalidate();
+    }
+
+
 }

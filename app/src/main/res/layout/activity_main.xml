@@ -7,26 +7,74 @@
     android:padding="30dp"
     tools:context="io.github.ejchathuranga.customtextview.MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <io.github.ejchathuranga.ctv.CustomTextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="10dp"
-        android:textSize="20sp"
-        app:ctvUnderlineColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.076" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/buttonSetUnderLineColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_margin="2dp"
+                android:textColor="@android:color/background_light"
+                android:text="Set underline color" />
+
+            <Button
+                android:id="@+id/buttonSetUnderlineDotWidthAndSpace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/background_light"
+                android:text="set Underline Dot Width And Space" />
+
+            <Button
+                android:id="@+id/buttonSetUnderlineThickness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/background_light"
+                android:text="set Underline Thickness" />
+
+            <Button
+                android:id="@+id/buttonStUnderlinePadding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/background_light"
+                android:layout_margin="2dp"
+                android:text="set Underline Padding" />
+
+            <Button
+                android:id="@+id/buttonReset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:layout_margin="2dp"
+                android:text="Reset" />
+
+
+            <io.github.ejchathuranga.ctv.CustomTextView
+                android:id="@+id/tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:paddingBottom="40dp"
+                android:gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
