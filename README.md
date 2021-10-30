@@ -13,11 +13,11 @@ CustomTextView is available on `mavenCentral()`.
 
 #### Groovy(Java)
 ```groovy
-implementation 'io.github.ejchathuranga:custom-textview:1.1.0'
+implementation 'io.github.ejchathuranga:custom-textview:1.1.1'
 ```
 #### Kotlin
 ```kotlin
-implementation("io.github.ejchathuranga:custom-textview:1.1.0")
+implementation("io.github.ejchathuranga:custom-textview:1.1.1")
 ```
 
 ## Usage/Initialization
