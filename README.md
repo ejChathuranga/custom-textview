@@ -13,21 +13,20 @@ CustomTextView is available on `mavenCentral()`.
 
 #### Groovy(Java)
 ```groovy
-implementation 'io.github.ejchathuranga:custom-textview:1.0.01'
+implementation 'io.github.ejchathuranga:custom-textview:1.1.0'
 ```
 #### Kotlin
 ```kotlin
-implementation("io.github.ejchathuranga:custom-textview:1.0.01")
+implementation("io.github.ejchathuranga:custom-textview:1.1.0")
 ```
 
-## Usage
+## Usage/Initialization
 ```
 <io.github.ejchathuranga.ctv.CustomTextView
                 android:id="@+id/ctv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:ctvUnderlineColor="0xFFFF00FF"
-                app:underlineWidth="10.5"
                 app:ctvUnderlinePadding="20"
                 app:ctvUnderLineDotWidth="40"
                 app:ctvUnderLineDotSpace="20" />
